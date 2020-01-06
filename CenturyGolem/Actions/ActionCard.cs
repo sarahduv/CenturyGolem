@@ -5,10 +5,12 @@ using System.Text;
 
 namespace CenturyGolem
 {
-    class ActionCard
+    abstract class ActionCard
     {
         private Dictionary<Gem, int> mPlacedGems = new Dictionary<Gem, int>();
         private Boolean mPlayed = false;
+
+        public abstract string GetDescription();
     }
 
     class GemCard : ActionCard
@@ -18,6 +20,10 @@ namespace CenturyGolem
         public GemCard(Dictionary<Gem, int> gems)
         {
             mGems = gems;
+        }
+        public override string GetDescription()
+        {
+            return Tools.GemString(mGems);
         }
     }
 
@@ -29,17 +35,27 @@ namespace CenturyGolem
         {
             mCount = count;
         }
+
+        public override string GetDescription()
+        {
+            return " of " + mCount;
+        }
     }
 
     class TradeCard : ActionCard
     {
-        private Dictionary<Gem, int> mGemReq = new Dictionary<Gem, int>();
+        private Dictionary<Gem, int> mGemReqs = new Dictionary<Gem, int>();
         private Dictionary<Gem, int> mGems = new Dictionary<Gem, int>();
 
         public TradeCard(Dictionary<Gem, int> reqs, Dictionary<Gem, int> gems)
         {
-            mGemReq = reqs;
+            mGemReqs = reqs;
             mGems = gems;
+        }
+
+        public override string GetDescription()
+        {
+            return Tools.GemString(mGemReqs) + " ==> " + Tools.GemString(mGems);
         }
     }
 

@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="Actions\ActionCard.cs" />
     <Compile Include="Actions\ActionDeck.cs" />
+    <Compile Include="Game.cs" />
     <Compile Include="Golems\GolemCard.cs" />
     <Compile Include="Golems\GolemDeck.cs" />
     <Compile Include="Player.cs" />
@@ -56,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Deck.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -9,6 +9,8 @@ namespace CenturyGolem
     {
         static void Main(string[] args)
         {
+            var game = new Game();
+            game.Init(2);
         }
     }
 }

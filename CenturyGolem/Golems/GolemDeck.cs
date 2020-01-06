@@ -5,10 +5,8 @@ using System.Text;
 
 namespace CenturyGolem
 {
-    class GolemDeck
+    class GolemDeck : Deck<GolemCard>
     {
-        private List<GolemCard> mCards = new List<GolemCard>();
-
         public void Init()
         {
             mCards.Clear();
@@ -17,7 +15,7 @@ namespace CenturyGolem
             mCards.Add(new GolemCard(16, Tools.ToGems(0, 2, 0, 3)));
             mCards.Add(new GolemCard(6, Tools.ToGems(2, 2, 0, 0)));
 
-            mCards = mCards.OrderBy(a => Guid.NewGuid()).ToList();
+            Shuffle();
         }
     }
 }

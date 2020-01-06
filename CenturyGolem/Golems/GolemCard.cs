@@ -8,12 +8,17 @@ namespace CenturyGolem
     class GolemCard
     {
         private int mPoints;
-        private Dictionary<Gem, int> mGemReq = new Dictionary<Gem, int>();
+        private Dictionary<Gem, int> mGemReqs = new Dictionary<Gem, int>();
 
         public GolemCard(int points, Dictionary<Gem, int> reqs)
         {
             mPoints = points;
-            mGemReq = reqs;
+            mGemReqs = reqs;
+        }
+
+        internal string GetDescription()
+        {
+            return Tools.GemString(mGemReqs) + " for " + mPoints + " points";
         }
     }
 
