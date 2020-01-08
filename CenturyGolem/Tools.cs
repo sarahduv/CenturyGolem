@@ -18,6 +18,14 @@ namespace CenturyGolem
             };
         }
 
+        internal static void InitGems(Dictionary<Gem, int> gems)
+        {
+            gems[Gem.Yellow] = 0;
+            gems[Gem.Green] = 0;
+            gems[Gem.Blue] = 0;
+            gems[Gem.Pink] = 0;
+        }
+
         public static string CoinString(Dictionary<Coin, int> coins)
         {
             string str = "";
@@ -48,5 +56,22 @@ namespace CenturyGolem
             return str;
         }
 
+        internal static int TotalGemCount(Dictionary<Gem, int> gems)
+        {
+            int num = 0;
+            foreach (var gemCount in gems.Values)
+            {
+                num += gemCount;
+            }
+            return num;
+        }
+
+        internal static void AbsorbGems(Dictionary<Gem, int> target, Dictionary<Gem, int> source)
+        {
+            target[Gem.Yellow] += source[Gem.Yellow];
+            target[Gem.Green] += source[Gem.Green];
+            target[Gem.Blue] += source[Gem.Blue];
+            target[Gem.Pink] += source[Gem.Pink];
+        }
     }
 }

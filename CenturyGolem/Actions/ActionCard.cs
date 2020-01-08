@@ -7,10 +7,31 @@ namespace CenturyGolem
 {
     abstract class ActionCard
     {
-        private Dictionary<Gem, int> mPlacedGems = new Dictionary<Gem, int>();
-        private Boolean mPlayed = false;
+        public Dictionary<Gem, int> PlacedGems = new Dictionary<Gem, int>();
+        public Boolean Played = false;
+
+        public ActionCard()
+        {
+            Tools.InitGems(PlacedGems);
+        }
+
 
         public abstract string GetDescription();
+
+        internal void PlaceGem(Gem gem)
+        {
+            PlacedGems[gem]++;
+        }
+
+        protected string GetPlacedGemsString()
+        {
+           if (Tools.TotalGemCount(PlacedGems) == 0)
+           {
+               return "";
+           }
+
+            return " (placed gems: " + Tools.GemString(PlacedGems) + ")";
+        }
     }
 
     class GemCard : ActionCard
@@ -23,7 +44,7 @@ namespace CenturyGolem
         }
         public override string GetDescription()
         {
-            return Tools.GemString(mGems);
+            return Tools.GemString(mGems) + GetPlacedGemsString();
         }
     }
 
@@ -38,7 +59,7 @@ namespace CenturyGolem
 
         public override string GetDescription()
         {
-            return " of " + mCount;
+            return "of " + mCount + GetPlacedGemsString();
         }
     }
 
@@ -55,7 +76,7 @@ namespace CenturyGolem
 
         public override string GetDescription()
         {
-            return Tools.GemString(mGemReqs) + " ==> " + Tools.GemString(mGems);
+            return Tools.GemString(mGemReqs) + " ==> " + Tools.GemString(mGems) + GetPlacedGemsString();
         }
     }
 

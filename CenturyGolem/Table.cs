@@ -7,8 +7,8 @@ namespace CenturyGolem
 {
     class Table
     {
-        private const int FaceUpActionCount = 1; //6;
-        private const int FaceUpGolemCount = 1; // 5;
+        private const int FaceUpActionCount = 6;
+        private const int FaceUpGolemCount = 5;
 
         private ActionDeck mActionDeck = new ActionDeck();
         private GolemDeck mGolemDeck = new GolemDeck();
@@ -17,7 +17,10 @@ namespace CenturyGolem
         private int mCopperCoins;
         private int mSilverCoins;
 
-        internal void PrintState()
+        public List<ActionCard> ActionsFaceUp { get { return mActionFaceUp; } }
+        public List<GolemCard> GolemsFaceUp { get { return mGolemFaceUp; } }
+
+        internal void PrintState(List<GameAction> gameActions)
         {
             Console.WriteLine("Table State:");
             Console.WriteLine("  Golem deck cards: {0}   Action deck cards: {1}", mGolemDeck.Count(), mActionDeck.Count());
@@ -47,14 +50,37 @@ namespace CenturyGolem
             mGolemDeck.Init();
 
             for (int i = 0; i < FaceUpActionCount; ++i) 
-            { 
-                mActionFaceUp.Add(mActionDeck.GetNextCard());
+            {
+                PlaceNewActionCard();
             }
 
             for (int i = 0; i < FaceUpGolemCount; ++i)
             {
-                mGolemFaceUp.Add(mGolemDeck.GetNextCard());
+                PlaceNewGolemCard();
             }
         }
+
+        internal void PlaceNewActionCard()
+        {
+            var nextCard = mActionDeck.GetNextCard();
+            if (nextCard != null)
+            {
+                mActionFaceUp.Add(nextCard);
+            }
+        }
+
+        internal void PlaceNewGolemCard()
+        {
+            var nextCard = mGolemDeck.GetNextCard();
+            if (nextCard != null)
+            {
+                mGolemFaceUp.Add(nextCard);
+            }
+        }
+
+ 
+
+
+
     }
 }

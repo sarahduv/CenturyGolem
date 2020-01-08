@@ -11,6 +11,10 @@ namespace CenturyGolem
         {
             var game = new Game();
             game.Init(2);
+            while (!game.IsOver)
+            {
+                game.NextMove();
+            }
         }
     }
 }
