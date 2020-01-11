@@ -22,6 +22,8 @@ namespace CenturyGolem
 
             mActions.Add(new UpgradeCard(2));
             mActions.Add(new GemCard(Tools.ToGems(2, 0, 0, 0)));
+            mCoins[Coin.Copper] = 0;
+            mCoins[Coin.Silver] = 0;
         }
 
         private void initGems(int index)
@@ -29,7 +31,11 @@ namespace CenturyGolem
             Tools.InitGems(mGems);
             if (index == 0)
             {
-                mGems[Gem.Yellow] = 3;
+                //mGems[Gem.Yellow] = 3;
+                mGems[Gem.Yellow] = 10;
+                mGems[Gem.Green] = 10;
+                mGems[Gem.Blue] = 10;
+                mGems[Gem.Pink] = 0;
             }
             else if (index < 3)
             {
@@ -78,6 +84,38 @@ namespace CenturyGolem
                     () => { TakeCard(card); }
                 ));
             }
+
+            for (int golem = 0; golem < mTable.GolemsFaceUp.Count; ++golem)
+            {
+                var card = mTable.GolemsFaceUp[golem];
+                if (Tools.HasEnoughGemsForGolem(card.GemReqs, mGems))
+                {
+                    gameActions.Add(new GameAction("Get Golem card: " + card.GetDescription(),
+                        () => { TakeGolemCard(card); }
+                        ));
+                }
+            }
+        }
+
+        private void TakeGolemCard(GolemCard takenCard)
+        {
+            var index = mTable.GolemsFaceUp.IndexOf(takenCard);
+
+            if(index == 0 && mTable.CopperCoins > 0)
+            {
+                mCoins[Coin.Copper] += 1;
+                mTable.CopperCoins -= 1;
+            } else if (index == 1 && mTable.SilverCoins > 0)
+            {
+                mCoins[Coin.Silver] += 1;
+                mTable.SilverCoins -= 1;
+            }
+
+            mTable.GolemsFaceUp.Remove(takenCard);
+            mTable.PlaceNewGolemCard();
+
+            mGolems.Add(takenCard);
+
         }
 
         private void TakeCard(ActionCard takenCard)

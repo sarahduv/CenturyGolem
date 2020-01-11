@@ -16,6 +16,11 @@ namespace CenturyGolem
             mGemReqs = reqs;
         }
 
+        public Dictionary<Gem, int> GemReqs
+        {
+            get { return mGemReqs; }
+        }
+
         internal string GetDescription()
         {
             return Tools.GemString(mGemReqs) + " for " + mPoints + " points";

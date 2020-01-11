@@ -73,5 +73,13 @@ namespace CenturyGolem
             target[Gem.Blue] += source[Gem.Blue];
             target[Gem.Pink] += source[Gem.Pink];
         }
+
+        internal static bool HasEnoughGemsForGolem(Dictionary<Gem, int> golem, Dictionary<Gem, int> player)
+        {
+            return golem[Gem.Yellow] <= player[Gem.Yellow] &&
+                golem[Gem.Green] <= player[Gem.Green] &&
+                golem[Gem.Blue] <= player[Gem.Blue] &&
+                golem[Gem.Pink] <= player[Gem.Pink];
+        }
     }
 }

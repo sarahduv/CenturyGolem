@@ -20,6 +20,10 @@ namespace CenturyGolem
         public List<ActionCard> ActionsFaceUp { get { return mActionFaceUp; } }
         public List<GolemCard> GolemsFaceUp { get { return mGolemFaceUp; } }
 
+        public int CopperCoins { get { return mCopperCoins; } set { mCopperCoins = value; } }
+        public int SilverCoins { get { return mSilverCoins; } set { mSilverCoins = value; } }
+
+
         internal void PrintState(List<GameAction> gameActions)
         {
             Console.WriteLine("Table State:");
