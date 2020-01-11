@@ -35,7 +35,7 @@ namespace CenturyGolem
                 mGems[Gem.Yellow] = 10;
                 mGems[Gem.Green] = 10;
                 mGems[Gem.Blue] = 10;
-                mGems[Gem.Pink] = 0;
+                mGems[Gem.Pink] = 5;
             }
             else if (index < 3)
             {
