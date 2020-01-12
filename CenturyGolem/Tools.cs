@@ -66,12 +66,20 @@ namespace CenturyGolem
             return num;
         }
 
-        internal static void AbsorbGems(Dictionary<Gem, int> target, Dictionary<Gem, int> source)
+        internal static void AbsorbGems(Dictionary<Gem, int> player, Dictionary<Gem, int> absorb)
         {
-            target[Gem.Yellow] += source[Gem.Yellow];
-            target[Gem.Green] += source[Gem.Green];
-            target[Gem.Blue] += source[Gem.Blue];
-            target[Gem.Pink] += source[Gem.Pink];
+            player[Gem.Yellow] += absorb[Gem.Yellow];
+            player[Gem.Green] += absorb[Gem.Green];
+            player[Gem.Blue] += absorb[Gem.Blue];
+            player[Gem.Pink] += absorb[Gem.Pink];
+        }
+
+        internal static void PayGems(Dictionary<Gem, int> player, Dictionary<Gem, int> payment)
+        {
+            player[Gem.Yellow] -= payment[Gem.Yellow];
+            player[Gem.Green] -= payment[Gem.Green];
+            player[Gem.Blue] -= payment[Gem.Blue];
+            player[Gem.Pink] -= payment[Gem.Pink];
         }
 
         internal static bool HasEnoughGemsForGolem(Dictionary<Gem, int> golem, Dictionary<Gem, int> player)

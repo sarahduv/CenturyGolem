@@ -111,6 +111,8 @@ namespace CenturyGolem
                 mTable.SilverCoins -= 1;
             }
 
+            Tools.PayGems(mGems, takenCard.GemReqs);
+
             mTable.GolemsFaceUp.Remove(takenCard);
             mTable.PlaceNewGolemCard();
 
