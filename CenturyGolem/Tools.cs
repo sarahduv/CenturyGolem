@@ -82,12 +82,12 @@ namespace CenturyGolem
             player[Gem.Pink] -= payment[Gem.Pink];
         }
 
-        internal static bool HasEnoughGemsForGolem(Dictionary<Gem, int> golem, Dictionary<Gem, int> player)
+        internal static bool HasEnoughGemsForPayment(Dictionary<Gem, int> payment, Dictionary<Gem, int> player)
         {
-            return golem[Gem.Yellow] <= player[Gem.Yellow] &&
-                golem[Gem.Green] <= player[Gem.Green] &&
-                golem[Gem.Blue] <= player[Gem.Blue] &&
-                golem[Gem.Pink] <= player[Gem.Pink];
+            return payment[Gem.Yellow] <= player[Gem.Yellow] &&
+                payment[Gem.Green] <= player[Gem.Green] &&
+                payment[Gem.Blue] <= player[Gem.Blue] &&
+                payment[Gem.Pink] <= player[Gem.Pink];
         }
     }
 }

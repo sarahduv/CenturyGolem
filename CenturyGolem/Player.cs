@@ -88,13 +88,69 @@ namespace CenturyGolem
             for (int golem = 0; golem < mTable.GolemsFaceUp.Count; ++golem)
             {
                 var card = mTable.GolemsFaceUp[golem];
-                if (Tools.HasEnoughGemsForGolem(card.GemReqs, mGems))
+                if (Tools.HasEnoughGemsForPayment(card.GemReqs, mGems))
                 {
                     gameActions.Add(new GameAction("Get Golem card: " + card.GetDescription(),
                         () => { TakeGolemCard(card); }
                         ));
                 }
             }
+
+            foreach (var card in mActions)
+            {
+                if (card.Played) continue;
+
+                if (card is GemCard)
+                {
+                    var gemCard = (GemCard)card;
+                    gameActions.Add(new GameAction("Play gem card: " + gemCard.GetDescription(),
+                        () => { PlayGemCard(gemCard); }
+                        ));
+                }
+
+                if(card is TradeCard)
+                {
+                    var tradeCard = (TradeCard)card;
+                    if (Tools.HasEnoughGemsForPayment(tradeCard.GemReqs, mGems))
+                    {
+                        gameActions.Add(new GameAction("Play trade card: " + tradeCard.GetDescription(),
+                            () => { PlayTradeCard(tradeCard); }
+                        ));
+                    }
+                }
+
+                if(card is UpgradeCard)
+                {
+                    var upgradeCard = (UpgradeCard)card;
+                    gameActions.Add(new GameAction("Play upgrade card: " + upgradeCard.GetDescription(),
+                        () => { PlayUpgradeCard(upgradeCard); }
+                        ));
+                }
+            }
+        }
+
+        private void PlayUpgradeCard(UpgradeCard upgradeCard)
+        {
+            for(int remainingUpgrades = upgradeCard.UpgradeCount; remainingUpgrades > 0; remainingUpgrades--)
+            {
+                Console.WriteLine(remainingUpgrades + " upgrades remaining. Current gems: " + Tools.GemString(mGems));
+            }
+
+
+            upgradeCard.Played = true;
+        }
+
+        private void PlayTradeCard(TradeCard tradeCard)
+        {
+            Tools.AbsorbGems(mGems, tradeCard.GemsToAbsorb);
+            Tools.PayGems(mGems, tradeCard.GemReqs);
+            tradeCard.Played = true;
+        }
+
+        private void PlayGemCard(GemCard gemCard)
+        {
+            Tools.AbsorbGems(mGems, gemCard.GemsToAbsorb);
+            gemCard.Played = true;
         }
 
         private void TakeGolemCard(GolemCard takenCard)

@@ -36,47 +36,47 @@ namespace CenturyGolem
 
     class GemCard : ActionCard
     {
-        private Dictionary<Gem, int> mGems = new Dictionary<Gem, int>();
+        public Dictionary<Gem, int> GemsToAbsorb = new Dictionary<Gem, int>();
 
         public GemCard(Dictionary<Gem, int> gems)
         {
-            mGems = gems;
+            GemsToAbsorb = gems;
         }
         public override string GetDescription()
         {
-            return Tools.GemString(mGems) + GetPlacedGemsString();
+            return Tools.GemString(GemsToAbsorb) + GetPlacedGemsString();
         }
     }
 
     class UpgradeCard : ActionCard
     {
-        private int mCount; 
+        public int UpgradeCount; 
 
         public UpgradeCard(int count)
         {
-            mCount = count;
+            UpgradeCount = count;
         }
 
         public override string GetDescription()
         {
-            return "of " + mCount + GetPlacedGemsString();
+            return "of " + UpgradeCount + GetPlacedGemsString();
         }
     }
 
     class TradeCard : ActionCard
     {
-        private Dictionary<Gem, int> mGemReqs = new Dictionary<Gem, int>();
-        private Dictionary<Gem, int> mGems = new Dictionary<Gem, int>();
+        public Dictionary<Gem, int> GemReqs = new Dictionary<Gem, int>();
+        public Dictionary<Gem, int> GemsToAbsorb = new Dictionary<Gem, int>();
 
         public TradeCard(Dictionary<Gem, int> reqs, Dictionary<Gem, int> gems)
         {
-            mGemReqs = reqs;
-            mGems = gems;
+            GemReqs = reqs;
+            GemsToAbsorb = gems;
         }
 
         public override string GetDescription()
         {
-            return Tools.GemString(mGemReqs) + " ==> " + Tools.GemString(mGems) + GetPlacedGemsString();
+            return Tools.GemString(GemReqs) + " ==> " + Tools.GemString(GemsToAbsorb) + GetPlacedGemsString();
         }
     }
 
