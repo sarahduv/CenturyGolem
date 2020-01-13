@@ -22,6 +22,7 @@ namespace CenturyGolem
             PrintState(gameActions);
 
             Console.WriteLine();
+            Console.WriteLine("You are player: " + mCurrentPlayer);
             Console.WriteLine("Actions you can take:");
             for (int i = 0; i < gameActions.Count; ++i)
             {
