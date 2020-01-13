@@ -225,6 +225,11 @@ namespace CenturyGolem
 
             mGolems.Add(takenCard);
 
+            if(mGolems.Count == 5)
+            {
+                Console.WriteLine("The game is over.");
+            }
+
         }
 
         private void TakeCard(ActionCard takenCard)
