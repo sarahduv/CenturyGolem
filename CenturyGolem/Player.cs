@@ -131,13 +131,64 @@ namespace CenturyGolem
 
         private void PlayUpgradeCard(UpgradeCard upgradeCard)
         {
-            for(int remainingUpgrades = upgradeCard.UpgradeCount; remainingUpgrades > 0; remainingUpgrades--)
+            var upgradeableGems = new Gem[] { Gem.Yellow, Gem.Green, Gem.Blue };
+            for (int remainingUpgrades = upgradeCard.UpgradeCount; remainingUpgrades > 0; remainingUpgrades--)
             {
+
+                var choices = new List<GameAction>();
+                choices.Add(
+                    new GameAction("I don't want to upgrade any more",
+                    () => { remainingUpgrades = 0;  }
+                ));
+                foreach (var color in upgradeableGems)
+                {
+                    if (mGems[color] > 0)
+                    {
+                        choices.Add(
+                            new GameAction("Upgrade a " + color + " gem",
+                            () => { UpgradeGem(color); }
+                        ));
+                    }
+                }
+
+                // This prints the menu for the player to choose what upgrade they want
                 Console.WriteLine(remainingUpgrades + " upgrades remaining. Current gems: " + Tools.GemString(mGems));
+                for (var choiceIndex = 0; choiceIndex < choices.Count; ++choiceIndex)
+                {
+                    Console.WriteLine(" [" + choiceIndex + "] " + choices[choiceIndex].Description);
+                }
+
+                bool validChoice = false;
+                while (!validChoice)
+                {
+                    int userChoice;
+                    if (int.TryParse(Console.ReadLine(), out userChoice) && userChoice >= 0 && userChoice < choices.Count)
+                    {
+                        // then we have a valid choice for an action to play
+                        validChoice = true;
+                        choices[userChoice].Action();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid choice selected. Try again");
+                    }
+                }
+
             }
 
 
             upgradeCard.Played = true;
+        }
+
+        private void UpgradeGem(Gem color)
+        {
+            mGems[color]--;
+            if (color == Gem.Yellow) mGems[Gem.Green]++;
+            if (color == Gem.Green) mGems[Gem.Blue]++;
+            if (color == Gem.Blue) mGems[Gem.Pink]++;
         }
 
         private void PlayTradeCard(TradeCard tradeCard)
