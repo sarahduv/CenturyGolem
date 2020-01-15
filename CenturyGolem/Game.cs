@@ -60,7 +60,7 @@ namespace CenturyGolem
                 }
             }
 
-            mCurrentPlayer = (mCurrentPlayer + 1) % mPlayers.Count;
+                mCurrentPlayer = (mCurrentPlayer + 1) % mPlayers.Count;
         }
 
         public bool IsOver { get { return mGameOver; } }
