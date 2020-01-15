@@ -13,11 +13,13 @@ namespace CenturyGolem
         private List<ActionCard> mActions = new List<ActionCard>();
         private int mIndex;
         private Table mTable;
+        private Game mGame;
 
-        public Player(int index, Table table)
+        public Player(int index, Table table, Game game)
         {
             mIndex = index;
             mTable = table;
+            mGame = game;
             initGems(index);
 
             mActions.Add(new UpgradeCard(2));
@@ -227,9 +229,9 @@ namespace CenturyGolem
 
             if(mGolems.Count == 5)
             {
-                Console.WriteLine("The game is over.");
+                mGame.IsLastRound = true;
+                Console.WriteLine("This is the last round.");
             }
-
         }
 
         private void TakeCard(ActionCard takenCard)

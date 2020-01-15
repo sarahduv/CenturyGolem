@@ -11,6 +11,18 @@ namespace CenturyGolem
         private List<Player> mPlayers = new List<Player>();
         private int mCurrentPlayer = 0;
         private bool mGameOver = false;
+        private bool mIsLastRound = false;
+
+        public bool IsLastRound
+        {
+            get { return mIsLastRound; }
+            set { mIsLastRound = value; }
+        }
+        public bool IsGameOver
+        {
+            get { return mGameOver; }
+            set { mGameOver = value; }
+        }
 
         internal void NextMove()
         {
@@ -61,21 +73,27 @@ namespace CenturyGolem
             mTable.Init(numOfPlayers);
             for (int i = 0; i < numOfPlayers; ++i)
             {
-                mPlayers.Add(new Player(i, mTable));
+                mPlayers.Add(new Player(i, mTable, this));
             }
         }
 
         private void PrintState(List<GameAction> gameActions)
         {
-            mTable.PrintState(gameActions);
-            foreach (var player in mPlayers)
+            if (mIsLastRound == true && mCurrentPlayer == 0)
             {
-                Console.WriteLine();
-                player.PrintState(gameActions);
+                Console.WriteLine("The game is over.");
             }
+            else {
+                mTable.PrintState(gameActions);
+                foreach (var player in mPlayers)
+                {
+                    Console.WriteLine();
+                    player.PrintState(gameActions);
+                }
 
-            // Only for the current player, collect what it can do
-            mPlayers[mCurrentPlayer].CollectActions(gameActions);
+                // Only for the current player, collect what it can do
+                mPlayers[mCurrentPlayer].CollectActions(gameActions);
+            }           
         }
     }
 
