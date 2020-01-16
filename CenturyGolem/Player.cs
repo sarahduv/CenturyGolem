@@ -234,6 +234,8 @@ namespace CenturyGolem
             if(mGolems.Count == 5)
             {
                 mGame.IsLastRound = true;
+                Console.WriteLine();
+                Console.WriteLine();
                 Console.WriteLine("This is the last round.");
             }
         }
