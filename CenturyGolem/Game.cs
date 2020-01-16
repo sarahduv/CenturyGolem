@@ -18,6 +18,8 @@ namespace CenturyGolem
             get { return mIsLastRound; }
             set { mIsLastRound = value; }
         }
+
+        // Do I need this?
         public bool IsGameOver
         {
             get { return mGameOver; }
